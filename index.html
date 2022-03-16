@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue-4</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/js/vue.min.js"></script>
+    <script defer src="assets/js/main.js"></script>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <script defer src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<body class="bg-light">
+<div id="app" class="col-6 py-4 mx-auto">
+
+    <div class="main-page" v-show="currentPage==='main'">
+        <header>
+            <div class="d-flex p-4 border bg-white justify-content-around">
+                <div class="d-flex input-group w-75">
+                    <input type="text" class="form-control px-3" placeholder="Type note..." v-model="searchQuery"
+                           @keyup.enter="search">
+                    <button class="btn btn-primary rounded w-25" @click="search">Search</button>
+                </div>
+                <button class="btn btn-primary rounded ms-4 col-2" @click="move('addRecord')">Add new +</button>
+            </div>
+        </header>
+        <div class="px-5 mt-4">
+            <div class="d-flex flex-column">
+                <div class="d-flex  justify-content-between">
+                    <h2 class="text-center">Todo list</h2>
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle btn-secondary" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            Sort by
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" @click="sortRecords('priority')">Priority</a></li>
+                            <li><a class="dropdown-item" @click="sortRecords('date')">Date</a></li>
+                            <li><a class="dropdown-item" @click="sortRecords('name')">Name</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="todos">
+                    <transition-group name="todo">
+                        <todo-list v-for="todoList in records" :list="todoList" :list_index="todoList.id"
+                                   :key="todoList"
+                                   v-show="!searchResult.length">
+                        </todo-list>
+                    </transition-group>
+
+                    <transition-group name="todo">
+                        <todo-list v-for="todoList in searchResult" :list="todoList" :list_index="todoList.id"
+                                   :key="todoList"
+                                   v-show="searchResult">
+
+                        </todo-list>
+                    </transition-group>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="add-record" v-show="currentPage==='addRecord'">
+
+        <div class="form-container d-flex flex-column ">
+            <h2 class="text-center">Add new todo-list</h2>
+            <div class="col-12">
+                <label class="form-label ms-2">Title</label>
+                <input type="text" class="form-control rounded-pill ps-3 py-2" v-model="title">
+            </div>
+            <div class="text-center" style="margin-top: 30px;">
+                <button class="btn btn-primary rounded-pill fs-5" style="padding: 10px 80px" @click="addRecord">
+                    Создать
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+
+</html>

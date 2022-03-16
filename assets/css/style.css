@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a{
+cursor: pointer;
+}
+
+body {
+    background-color: lightgray;
+}
+
+.container {
+
+}
+
+.header-input {
+
+}
+
+.todo-enter-active, .todo-leave-active {
+    transition: opacity 0.5s;
+}
+
+.todo-move{
+    transition: transform 0.5s;
+}
+
+.todo-enter, .todo-leave-to {
+    opacity: 0;
+}
+
